@@ -6,7 +6,8 @@ Compute the energy used by the pump
 
 @author: ymasur@microclub.ch (YM)
 
-00.12.2017/YM
+30.12.2017/YM
+07.01.2018/YM
 """
 
 
@@ -19,7 +20,6 @@ class Energy:
         self.datas = datas
         self.nb_samples = datas.__len__()
         print("nb of datas: %d" % self.nb_samples)
-        datas[0].__repr__
 
     def set_pump_power(self, p_power):
         self.p_power = p_power  # in [W]
@@ -27,7 +27,7 @@ class Energy:
     def get_pump_energy(self, day=0, nb=1):
         e = Energy.use_day[day] * Energy.p_power  # hours * power
         return e
-        #print("total jour %d, %.0f Wh" % (day, e))
+        # print("total jour %d, %.0f Wh" % (day, e))
 
     def pump_use(self, day=0, nb=1):
         use = 0  # total hours of the pump works
@@ -49,14 +49,14 @@ class Energy:
     def get_e_of_month(self):
         e_month = 0
         if Energy.use_day.__len__() > 0:
-            for i in range (1, Energy.use_day.__len__()):
+            for i in range(1, Energy.use_day.__len__()):
                 e_month += Energy.use_day[i] * Energy.p_power
         return e_month  # in [Wh]
 
     def get_solar_of_month(self):
         t_sol = 0
         if Energy.use_day.__len__() > 0:
-            for i in range (1, Energy.use_day.__len__()):
+            for i in range(1, Energy.use_day.__len__()):
                 t_sol += Energy.use_day[i] * 100.0 / 24.0  # in [%]
 
             return t_sol / Energy.use_day.__len__()  # in [%] of month

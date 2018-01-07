@@ -4,7 +4,7 @@
 ecs-calc.py
 -----------
 30.12.2017 - ymasur@microclub.ch
-
+07.01.2018/YM
 """
 
 from __future__ import unicode_literals
@@ -12,10 +12,10 @@ import sys
 import esetup
 import samples, energy, temperatures
 
-__module__ = "calc-pump"
+__module__ = "ecs-calc"
 __author__ = 'Yves Masur'
 NAME = "ecs-calc"
-VERSION = "Version 1.00 - Yves Masur"
+VERSION = "Version 1.01 - Yves Masur"
 
 e_datas = 0  # maintained array of datas
 
@@ -44,7 +44,8 @@ def main(argv):
         h = e_datas.pump_use(i) * 100.0 / 24.0
         # e = e_datas.get_e_of_day(i)
         tau = t_calc.get_tau_of_day_full(i)
-        report += "\n%02d\t%02.1f\t%s" % (i, h, tau)
+        sample_day = t_calc.get_day(i)
+        report += "\n%02d\t%02.1f\t%s" % (sample_day, h, tau)
 
     report += "\n\nSolaire, pourcentage du mois:\t%2.1f [%%]" % e_datas.get_solar_of_month()
     report += "\nPompe, consommation du mois:\t%.2f [kWh]" % (e_datas.get_e_of_month() / 1000.0)

@@ -1,13 +1,17 @@
 #!/usr/bin/python
 #  -*- coding: utf-8 -*-
-# LPC_obj.py
-# ----------
-# 00.01.2018 - yvesmasur@microclub.ch
+"""
+Module: samples.py
+Load data samples from text file
+
+@author: ymasur@microclub.ch (YM)
+
+31.12.2017/YM
+"""
 from __future__ import unicode_literals
 
 __module__ = "samples"
 __author__ = 'Yves Masur'
-
 
 
 class Samples:
@@ -34,7 +38,7 @@ class Samples:
 
         elem = line.split("\t")  # ex. ['17/10/01', '02:20:00', '0', '19.3', '41.1', '49.1']
         if elem.__len__() < 5:
-            return "ERR: nb elements:%d, expected 5" % elem.__len__()
+            return "ERR: nb of elements:%d, expected 5" % elem.__len__()
 
         try:
             self.dd = int(elem[0][6:8])  # jour du mois
@@ -50,6 +54,8 @@ class Samples:
         Samples.s_array.append(self)
         return 1  # 1 element added
 
+# end class Samples
+
 
 def readFile(fileName="tempdata.txt"):
     """
@@ -61,13 +67,18 @@ def readFile(fileName="tempdata.txt"):
         for line in fp:
             s = Samples()
             rc = s.addSample(line)
-            if rc == 1 :
+            if rc == 1:
                 Samples.instanceCounter += 1
             else:
                 print(rc)
+        fp.close()
+
     except IOError:
-        print("Fichier: %s non trouvé" % fileName)
+        print("Fichier: %s pas accessible" % fileName)
         exit(2)
+
+# end readFile
+
 
 # Unity tests here
 if __name__ == '__main__':

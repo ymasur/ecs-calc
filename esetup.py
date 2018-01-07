@@ -6,7 +6,7 @@ Contains the initialization steps at startup
 
 @author: ymasur@microclub.ch (YM)
 
-00.12.2017/YM
+31.12.2017/YM
 """
 import os, time
 
@@ -14,6 +14,7 @@ samples_per_hour = 6
 
 infile = "tempdata.txt"
 outfile = "tempdata.report.txt"
+
 
 def help(argv):
     """ Aide en ligne sur le programme
@@ -24,10 +25,12 @@ def help(argv):
           u"\nAvec:\n"
           u"infile : chemin/fichier à lire\n"
           u"outfile : chemin/fichier à traiter\n"
-          u"Par défaut, <outfile> est <infile> renommé '.calc.txt'"
+          u"Par défaut, <outfile> est <infile> renommé '.calc.txt'\n"
+          u"Et le fichier lu est YYMMdata.txt; YY:date, MM:mois en cours.\n"
           % argv[0]
-    )
+          )
     return
+# end help
 
 def set_args(argv):
     # type: (object) -> object
@@ -38,7 +41,9 @@ def set_args(argv):
     global infile, outfile
 
     if len(argv) == 1:
-        infile = time.strftime("%y%m") + "data.txt"
+        path = argv[0]
+        default = time.strftime("%y%m") + "data.txt"
+        infile = path.replace("ecs-calc.py", default)
         outfile = infile.replace(".txt", ".calc.txt")
         return
 
@@ -57,4 +62,5 @@ def set_args(argv):
     else:
         outfile = argv[1].replace(".txt", ".calc.txt")
 
-#end of setargs
+# end of setargs
+
